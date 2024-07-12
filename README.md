@@ -65,6 +65,67 @@ Url: https://example.org/v1/fjZdS0lD?i=1234567890&s=tx&r=5&x=WQ7cVlxQ0Q
 6. The campaign creator can monitor the campaign's progress and live events through the dashboard.
 7. Once the campaign is complete, the campaign creator can generate insights and reports based on the collected user opinions and associated metadata.
 
+## Config
+
+```yaml
+# config.yaml
+
+# Server Configuration
+server:
+  host: "0.0.0.0"
+  port: 8080
+  debug: false
+
+# Database Configuration
+database:
+  type: "mongodb"
+  host: "localhost"
+  port: 27017
+  name: "opinion_collector"
+  user: "dbuser"
+  password: "dbpassword"
+
+# Security Configuration
+security:
+  api_key: "your_secret_key_here"
+
+# Logging
+logging:
+  level: "info"
+  file: "/var/log/opinion_collector.log"
+
+# Email (for notifications)
+email:
+  smtp_host: "smtp.example.com"
+  smtp_port: 587
+  smtp_user: "noreply@example.com"
+  smtp_password: "emailpassword"
+
+```
+
+## Web View
+
+### Frontend Views
+
+- `/`: Homepage with a brief introduction
+
+### Backend Views
+
+- `/admin/`: Homepage with a brief introduction and links to the dashboard and campaign creator.
+- `/admin/dashboard`: Real-time monitoring interface for live events and campaign progress.
+- `/admin/campaigns`: List of all campaigns created by the user.
+
+## API Export Feature
+
+The Generic Opinion Collector now supports exporting Campaign data via API. This feature allows authorized users to programmatically retrieve campaign information, responses, and analytics.
+
+### API Endpoint
+
+- **URL**: `/api/v1/campaigns/{campaignId}/export`
+- **Method**: GET
+- **Authentication**: Required (API key)
+
+
 ## Database Structure
 
 This provided structure is a conceptual representation of how you might design your MongoDB documents. 
@@ -192,7 +253,8 @@ This provided structure is a conceptual representation of how you might design y
   _id: ObjectId("..."),
   username: "johndoe",
   email: "johndoe@example.com",
-  passwordHash: "bcrypt_hashed_password",
+  passwordHash: "Argon2id_hashed_password",
+  otpSecrets: ["base32_secret_1", "base32_secret_2"],  // For 2FA
   fullName: "John Doe",
   role: "campaign_creator",
   createdAt: ISODate("2023-01-01T00:00:00Z"),
