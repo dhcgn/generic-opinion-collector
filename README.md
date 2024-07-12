@@ -76,6 +76,7 @@ This provided structure is a conceptual representation of how you might design y
   campaignId: "fjZdS0lD",
   name: "Summer Product Feedback",
   description: "Collecting user opinions on our new summer product line",
+  creatorId: ObjectId("..."),  // Reference to the User Collection
   createdAt: ISODate("2023-06-01T00:00:00Z"),
   updatedAt: ISODate("2023-06-01T00:00:00Z"),
   status: "active",
@@ -116,6 +117,16 @@ This provided structure is a conceptual representation of how you might design y
       type: "scale",
       min: 1,
       max: 5
+    }
+  ],
+  collaborators: [
+    {
+      userId: ObjectId("..."),
+      role: "editor"
+    },
+    {
+      userId: ObjectId("..."),
+      role: "viewer"
     }
   ],
   statistics: {
@@ -176,18 +187,31 @@ This provided structure is a conceptual representation of how you might design y
   }
 }
 
-// User Collection (Optional, based on privacy settings)
+// User Collection
 {
   _id: ObjectId("..."),
-  userId: "1234567890",
-  name: "John Doe",
-  email: "john.doe@example.com",
-  demographics: {
-    age: 30,
-    gender: "male",
-    occupation: "engineer"
-  },
-  createdAt: ISODate("2023-06-01T00:00:00Z"),
-  updatedAt: ISODate("2023-06-15T14:30:00Z")
+  username: "johndoe",
+  email: "johndoe@example.com",
+  passwordHash: "bcrypt_hashed_password",
+  fullName: "John Doe",
+  role: "campaign_creator",
+  createdAt: ISODate("2023-01-01T00:00:00Z"),
+  lastLogin: ISODate("2023-06-15T10:30:00Z"),
+  status: "active",
+  permissions: ["create_campaign", "edit_campaign", "view_results", "generate_reports"],
+  ownedCampaigns: [
+    {
+      campaignId: "fjZdS0lD",
+      name: "Summer Product Feedback"
+    },
+    {
+      campaignId: "abCD1234",
+      name: "Customer Satisfaction Survey"
+    }
+  ],
+  settings: {
+    emailNotifications: true,
+    twoFactorAuth: false
+  }
 }
 ```
