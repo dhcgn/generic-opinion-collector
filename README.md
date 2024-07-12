@@ -47,9 +47,9 @@ Url: https://example.org/v1/fjZdS0lD?i=1234567890&s=tx&r=5&x=WQ7cVlxQ0Q
 
 - `v1`: Version of the API being used (e.g., v1, v2).
 - `fjZdS0lD`: Unique campaign identifier.
-- `i`: User identifier (optional tracing details).
-- `s`: State (optional tracing details).
-- `r`: Room (optional tracing details).
+- `i`: User identifier (example for an optional tracing details).
+- `s`: State (example for an optional tracing details).
+- `r`: Room (example for an optional tracing details).
 - `x`: Signature for data integrity and security (mandatory for data submission).
 
 ## Use Cases
@@ -64,3 +64,130 @@ Url: https://example.org/v1/fjZdS0lD?i=1234567890&s=tx&r=5&x=WQ7cVlxQ0Q
    1. They can choose which tracing details they want to share
 6. The campaign creator can monitor the campaign's progress and live events through the dashboard.
 7. Once the campaign is complete, the campaign creator can generate insights and reports based on the collected user opinions and associated metadata.
+
+## Database Structure
+
+This provided structure is a conceptual representation of how you might design your MongoDB documents. 
+
+```
+// Campaign Collection
+{
+  _id: ObjectId("..."),
+  campaignId: "fjZdS0lD",
+  name: "Summer Product Feedback",
+  description: "Collecting user opinions on our new summer product line",
+  createdAt: ISODate("2023-06-01T00:00:00Z"),
+  updatedAt: ISODate("2023-06-01T00:00:00Z"),
+  status: "active",
+  privacySettings: {
+    collectUserInfo: true,
+    collectRegionalData: true,
+    anonymity: false
+  },
+  tracingDetails: [
+    {
+      key: "i",
+      name: "Identifier",
+      description: "Unique identifier for the respondent",
+      isRequired: false
+    },
+    {
+      key: "s",
+      name: "Source",
+      description: "Source of the response",
+      isRequired: false
+    },
+    {
+      key: "r",
+      name: "Reference",
+      description: "Additional reference information",
+      isRequired: false
+    }
+  ],
+  questions: [
+    {
+      questionId: "q1",
+      text: "What do you think about our new summer t-shirt design?",
+      type: "text"
+    },
+    {
+      questionId: "q2",
+      text: "How likely are you to purchase this product?",
+      type: "scale",
+      min: 1,
+      max: 5
+    }
+  ],
+  statistics: {
+    totalResponses: 1000,
+    completionRate: 0.85,
+    averageTimeToComplete: 180, // in seconds
+    responsesBySource: {
+      "email": 500,
+      "social": 300,
+      "website": 200
+    },
+    questionStats: {
+      "q1": {
+        responseCount: 950,
+        averageLength: 50 // for text responses, average character count
+      },
+      "q2": {
+        responseCount: 980,
+        averageRating: 4.2,
+        ratingDistribution: {
+          "1": 50,
+          "2": 80,
+          "3": 150,
+          "4": 300,
+          "5": 400
+        }
+      }
+    },
+    lastUpdated: ISODate("2023-06-15T14:30:00Z")
+  }
+}
+
+// Response Collection
+{
+  _id: ObjectId("..."),
+  campaignId: "fjZdS0lD",
+  submittedAt: ISODate("2023-06-15T14:30:00Z"),
+  tracingDetails: {
+    i: "1234567890",  // Generic identifier
+    s: "email",       // Generic source
+    r: "promo_456"    // Generic reference
+  },
+  responses: [
+    {
+      questionId: "q1",
+      answer: "I love the vibrant colors and modern design!"
+    },
+    {
+      questionId: "q2",
+      answer: 4
+    }
+  ],
+  metadata: {
+    userAgent: "Mozilla/5.0 ...",
+    ipAddress: "192.168.1.1",  // Stored if allowed by privacy settings
+    region: "Texas, USA",      // Stored if allowed by privacy settings
+    timeToComplete: 165        // in seconds
+  }
+}
+
+// User Collection (Optional, based on privacy settings)
+{
+  _id: ObjectId("..."),
+  userId: "1234567890",
+  name: "John Doe",
+  email: "john.doe@example.com",
+  demographics: {
+    age: 30,
+    gender: "male",
+    occupation: "engineer"
+  },
+  createdAt: ISODate("2023-06-01T00:00:00Z"),
+  updatedAt: ISODate("2023-06-15T14:30:00Z")
+}
+```
