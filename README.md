@@ -1,3 +1,6 @@
+[![Build and Test](https://github.com/dhcgn/generic-opinion-collector/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/dhcgn/generic-opinion-collector/actions/workflows/build-and-test.yml)
+[![Coverage Status](https://coveralls.io/repos/github/dhcgn/generic-opinion-collector/badge.svg?branch=main)](https://coveralls.io/github/dhcgn/generic-opinion-collector?branch=main)
+
 # Generic Opinion Collector
 
 Generic Opinion Collector is a comprehensive software solution designed for collecting written opinions, poll responses, and survey answers from users through web forms distributed via links. This versatile system allows for efficient opinion data collection, management, and analysis across various campaigns and user details.
