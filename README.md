@@ -18,6 +18,8 @@ The Generic Opinion Collector system consists of several key components:
 - **Customizable Privacy Settings**: Configure campaigns to collect detailed user information, regional data only, or maintain complete anonymity.
 - **Real-time Monitoring**: Track campaign progress and live events through an intuitive dashboard.
 - **Data Analysis and Reporting**: Generate insights and reports based on collected user opinions and associated metadata.
+- **Misused**: Use a GDPR-compliant approach to ensure no misuse of polls
+- **GDPR-Compliant**: Comply with GDPR regulations by providing users with the right to access, modify, and delete their data
 
 ## Use Cases
 
@@ -58,6 +60,9 @@ Url: https://example.org/v1/fjZdS0lD?i=1234567890&s=tx&r=5&x=WQ7cVlxQ0Q
 
 1. The role "campaign creator" goes to the dashboard and creates a new campaign.
 2. The campaign creator sets up the campaign details, such as the campaign name, tracing details, description, and privacy settings.
+   1. tracing details could be like different rooms where in a event (the campaign) is taking place
+   2. Or - mostly automatic - links can be created afterwards with different tracing details, like user id, the signature of each ensures that this can only be created by the campaign creator and not by the user itself
+   3. All tracings details are optional and a written down under the Qr-Code, so the user can see what is being tracked and can decide if he wants to participate or not
 3. The campaign creator customizes the web form. This may include adding questions, setting response types, and configuring privacy settings.
 4. The campaign creator shares the web form link with participants
 5. Participants submit their written opinions, poll responses, or survey answers through the web form, which is then stored in the backend system for further analysis and reporting.
